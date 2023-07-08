@@ -2,19 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BallScript : MonoBehaviour
 {
     [SerializeField] ParticleSystem dustParticles;
+    [SerializeField] TextMeshProUGUI scoreText, timeText, bestTimeText;
     private bool isEmitting = false;
+    AudioScript audioScript;
 
     Rigidbody rigidBody;
     float movingValue = 1.5f, jumpingValue = 5f;
-    private bool isGrounded = true, godMode = false;
-    private int jumpCount = 0;
+    private bool isGrounded = true, godMode = false, goalReachedFlag = false;
+    private int jumpCount = 0, collectedItem, maxScore = 7;
+    private float playtime = 0f, bestPlaytime = 0f;
 
     void Start()
     {
+        bestPlaytime = PlayerPrefs.GetFloat("BestPlaytime" + SceneManager.GetActiveScene().buildIndex, Mathf.Infinity);
+        if (bestPlaytime != Mathf.Infinity)
+        {
+            bestTimeText.text = "Best Playtime: " + bestPlaytime.ToString("F2") + " s";
+            bestTimeText.color = Color.green;
+            bestTimeText.gameObject.SetActive(true);
+        }
+
+        audioScript = GameObject.Find("Audio Object").GetComponent<AudioScript>();
+
+        collectedItem = 0;
+        scoreText.text = string.Format("Collected: {0} / 30", collectedItem);
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -54,6 +70,12 @@ public class BallScript : MonoBehaviour
 
     void Update()
     {
+        if (!goalReachedFlag)
+        {
+            playtime += Time.deltaTime;
+            timeText.text = "Playtime: " + playtime.ToString("F2") + " s";
+        }
+
         if (Input.GetButtonDown("Jump") && !godMode)
             Jump();
 
@@ -74,6 +96,7 @@ public class BallScript : MonoBehaviour
     {
         if (isGrounded || jumpCount < 2)
         {
+            audioScript.JumpSFX();
             rigidBody.AddForce(Vector3.up * 5f, ForceMode.VelocityChange);
             isGrounded = false;
             jumpCount++;
@@ -82,10 +105,15 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Goal"))
         {
             isGrounded = true;
             jumpCount = 0;
+        }
+
+        if (collision.gameObject.CompareTag("Goal") && collectedItem == maxScore)
+        {
+            ReachedGoal();
         }
     }
 
@@ -117,5 +145,33 @@ public class BallScript : MonoBehaviour
             rigidBody.velocity = Vector3.zero;
             rigidBody.angularVelocity = Vector3.zero;
         }
+    }
+
+    public void UpdateScore()
+    {
+        audioScript.CollectItemSFX();
+        collectedItem += 1;
+        Debug.Log("Current Score: " + collectedItem);
+        scoreText.text = string.Format("Collected: {0} / 30", collectedItem);
+
+        if (collectedItem == maxScore)
+            scoreText.color = Color.green;
+    }   
+
+    private void ReachedGoal()
+    {
+        goalReachedFlag = true;
+        if (playtime < bestPlaytime)
+        {
+            PlayerPrefs.SetFloat("BestPlaytime" + SceneManager.GetActiveScene().buildIndex, playtime);
+            bestPlaytime = playtime;
+
+            bestTimeText.text = "Best Playtime: " + bestPlaytime.ToString("F2") + " s";
+            bestTimeText.color = Color.green;
+            bestTimeText.gameObject.SetActive(true);
+        }
+            
+        audioScript.GoalSFX();
+        Invoke("ReloadMenuScene", 3f);
     }
 }
