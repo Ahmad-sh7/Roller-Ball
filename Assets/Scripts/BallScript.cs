@@ -14,7 +14,7 @@ public class BallScript : MonoBehaviour
     Rigidbody rigidBody;
     float movingValue = 1.5f, jumpingValue = 5f;
     private bool isGrounded = true, godMode = false, goalReachedFlag = false;
-    private int jumpCount = 0, collectedItem, maxScore = 7;
+    private int jumpCount = 0, collectedItem, maxScore = 30;
     private float playtime = 0f, bestPlaytime = 0f;
 
     void Start()
