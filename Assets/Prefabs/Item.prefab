@@ -112,7 +112,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.7924528, g: 0.44627607, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -194,7 +194,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f11b371cdab5aa45a4d8c30e280ba5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 6426431852709761671, guid: d769450a362e6fa46af0f564530c0eb1,
-    type: 3}
   particleSystemPrefab: {fileID: 2069155470967659568, guid: 2efe8c27a0f95ed4aaa1fb94179848ed,
     type: 3}
