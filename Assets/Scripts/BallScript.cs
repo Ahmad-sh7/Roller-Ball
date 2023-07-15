@@ -91,7 +91,7 @@ public class BallScript : MonoBehaviour
             timeText.text = "Playtime: " + playtime.ToString("F2") + " s";
         }
 
-        if (Input.GetButtonDown("Jump") && !godMode)
+        if ((Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0)) && !godMode)
             Jump();
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -147,7 +147,7 @@ public class BallScript : MonoBehaviour
         }
 
         Vector3 movement = new Vector3(moveHorizontal, moveUpDown, moveVertical);
-        rigidBody.MovePosition(rigidBody.position + movement * 5f * Time.fixedDeltaTime);
+        rigidBody.MovePosition(rigidBody.position + movement * 10f * Time.fixedDeltaTime);
     }
 
     private void ToggleGodMode()
