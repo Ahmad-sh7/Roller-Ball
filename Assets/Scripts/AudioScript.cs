@@ -7,6 +7,7 @@ public class AudioScript : MonoBehaviour
     [SerializeField] AudioClip collectItemSFX;
     [SerializeField] AudioClip jumpSFX;
     [SerializeField] AudioClip goalSFX;
+    [SerializeField] AudioClip cubeSFX;
     AudioSource audioSource;
 
     void Start()
@@ -37,5 +38,10 @@ public class AudioScript : MonoBehaviour
     public void GoalSFX()
     {
         audioSource.PlayOneShot(goalSFX, 0.5f);
+    }
+
+    public void CubeSFX()
+    {
+        audioSource.PlayOneShot(cubeSFX, 0.5f);
     }
 }

@@ -8737,6 +8737,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1106775928873818329, guid: be528b87a4ecfa7479c522440027e2c7,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106775928873818329, guid: be528b87a4ecfa7479c522440027e2c7,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106775928873818329, guid: be528b87a4ecfa7479c522440027e2c7,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106775928873818329, guid: be528b87a4ecfa7479c522440027e2c7,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4944705440337319033, guid: be528b87a4ecfa7479c522440027e2c7,
         type: 3}
       propertyPath: m_RootOrder
@@ -9799,7 +9819,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
