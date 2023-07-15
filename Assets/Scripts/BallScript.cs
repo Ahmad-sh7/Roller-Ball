@@ -13,7 +13,7 @@ public class BallScript : MonoBehaviour
     AudioScript audioScript;
 
     Rigidbody rigidBody;
-    float movingValue = 1.5f, jumpingValue = 5f;
+    float movingValue = 1f, jumpingValue = 5f;
     private bool isGrounded = true, godMode = false, goalReachedFlag = false;
     private int jumpCount = 0, collectedItem, maxScore = 30;
     private float playtime = 0f, bestPlaytime = 0f;
@@ -166,7 +166,6 @@ public class BallScript : MonoBehaviour
     {
         audioScript.CollectItemSFX();
         collectedItem += 1;
-        Debug.Log("Current Score: " + collectedItem);
         scoreText.text = string.Format("Collected: {0} / 30", collectedItem);
 
         if (collectedItem == maxScore)
