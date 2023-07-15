@@ -8,6 +8,7 @@ public class BallScript : MonoBehaviour
 {
     [SerializeField] ParticleSystem dustParticles;
     [SerializeField] TextMeshProUGUI scoreText, timeText, bestTimeText;
+    [SerializeField] List<Material> ballMaterials;
     private bool isEmitting = false;
     AudioScript audioScript;
 
@@ -16,6 +17,20 @@ public class BallScript : MonoBehaviour
     private bool isGrounded = true, godMode = false, goalReachedFlag = false;
     private int jumpCount = 0, collectedItem, maxScore = 30;
     private float playtime = 0f, bestPlaytime = 0f;
+
+    void Awake()
+    {
+        int selectedBall = PlayerPrefs.GetInt("SelectedBall");
+        Renderer objectRenderer = GetComponent<Renderer>();
+        if (selectedBall == 0)
+            objectRenderer.material = ballMaterials[0];
+
+        else if (selectedBall == 1)
+            objectRenderer.material = ballMaterials[1];
+
+        else if (selectedBall == 2)
+            objectRenderer.material = ballMaterials[2];
+    }
 
     void Start()
     {

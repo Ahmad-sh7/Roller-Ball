@@ -6,15 +6,12 @@ public class MenuScript : MonoBehaviour
 {
     AudioScript audioScript;
     [SerializeField] Image[] ballImages;
-    Image selectedImage;
-    Color unselectedColor = new Color(0f, 0f, 0f), originalColor;
 
     void Start()
     {
         audioScript = GameObject.Find("Audio Object").GetComponent<AudioScript>();
-        selectedImage = ballImages[0];
-        originalColor = selectedImage.color;
         SetSelectedImage(0);
+        PlayerPrefs.SetInt("SelectedBall", 0);
     }
 
     public void FirstLevelOnClick()
@@ -42,29 +39,28 @@ public class MenuScript : MonoBehaviour
     public void OnRubImageSecleted()
     {
         audioScript.HoverSFX();
-        selectedImage = ballImages[0];
         SetSelectedImage(0);
+        PlayerPrefs.SetInt("SelectedBall", 0);
     }
 
     public void OnDogImageSecleted()
     {
         audioScript.HoverSFX();
-        selectedImage = ballImages[1];
         SetSelectedImage(1);
+        PlayerPrefs.SetInt("SelectedBall", 1);
     }
 
     public void OnGirlImageSecleted()
     {
         audioScript.HoverSFX();
-        selectedImage = ballImages[2];
         SetSelectedImage(2);
+        PlayerPrefs.SetInt("SelectedBall", 2);
     }
 
     private void SetSelectedImage(int index)
-    {   /*
+    {
         for (int i = 0; i < ballImages.Length; i++)
-            ballImages[i].color = unselectedColor;
-        ballImages[index].color = originalColor;
-        */
+            ballImages[i].transform.localScale = new Vector3(1f, 1f, 1f);
+        ballImages[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
     }
 }
